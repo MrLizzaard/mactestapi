@@ -21,13 +21,18 @@ router.get("/makedata", async (req, res) => {
 
 router.get("/getdata", async (req, res) => {
   try {
-    const snapShot = await db.collection("users").get();
+    const usersSnapShot = await db.collection("users").get();
+    const postsSnapShot = await db.collection("posts").get();
 
-    snapShot.forEach((doc) => {
+    usersSnapShot.forEach((doc) => {
       console.log(doc.id, " : ", doc.data());
     });
 
-    res.send({ snapShot });
+    postsSnapShot.forEach((doc) => {
+      console.log(doc.id, " : ", doc.data());
+    });
+
+    res.send({ usersSnapShot });
   } catch (err) {
     console.log(err);
   }
